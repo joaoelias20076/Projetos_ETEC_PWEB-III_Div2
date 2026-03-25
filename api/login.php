@@ -6,9 +6,9 @@ $json = filter_input(INPUT_GET,'jsn');//{"usuario":"RICKS","senha":"123456"}
 $data = json_decode($json,true);
 $usuario = $data['usuario'];
 $senha = $data['senha'];
-$sql = "select * from usuarios where usulogin = '$usuario' and ususenha = MD5($senha);";
+$sql = "select * from usuarios where usulogin = ? and ususenha = MD5(?);";
 $prp = $pdo->prepare($sql);
-$prp->execute();
+$prp->execute(array($usuario,$senha));
 $data = $prp->fetchall(PDO::FETCH_ASSOC);
 echo json_encode($data);
 //http://localhost/Projetos_ETEC_PWEB-III_Div2/api/login.php?jsn={"usuario":"XANDAO","senha":"123456"}
